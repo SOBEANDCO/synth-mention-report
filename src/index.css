@@ -1,46 +1,46 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Glassmorphism dashboard design system */
 
 @layer base {
   :root {
-    --background: 28 25% 96%;
-    --foreground: 25 15% 25%;
+    /* Glassmorphism color palette */
+    --background: 25 15% 92%; /* Light beige background */
+    --foreground: 220 15% 25%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 25 15% 25%;
+    --card: 0 0% 100% / 0.4; /* Semi-transparent white */
+    --card-foreground: 220 15% 25%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 25 15% 25%;
+    --popover: 0 0% 100% / 0.9;
+    --popover-foreground: 220 15% 25%;
 
-    --primary: 25 85% 45%;
+    --primary: 25 45% 65%; /* Warm beige-brown */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 28 30% 88%;
-    --secondary-foreground: 25 15% 35%;
+    --secondary: 25 25% 85%; /* Light warm gray */
+    --secondary-foreground: 220 15% 35%;
 
-    --muted: 28 25% 92%;
-    --muted-foreground: 25 10% 50%;
+    --muted: 25 20% 88% / 0.6; /* Semi-transparent muted */
+    --muted-foreground: 220 10% 50%;
 
-    --accent: 30 45% 85%;
-    --accent-foreground: 25 15% 25%;
+    --accent: 30 35% 80% / 0.5; /* Warm accent */
+    --accent-foreground: 220 15% 25%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 28 20% 90%;
-    --input: 28 20% 90%;
-    --ring: 25 85% 45%;
+    --border: 25 15% 85% / 0.3; /* Semi-transparent borders */
+    --input: 25 15% 85% / 0.5;
+    --ring: 25 45% 65%;
 
-    --chart-1: 25 85% 45%;
-    --chart-2: 35 75% 55%;
-    --chart-3: 45 70% 60%;
-    --chart-4: 15 60% 65%;
-    --chart-5: 55 65% 50%;
+    --chart-1: 25 65% 55%;
+    --chart-2: 35 55% 60%;
+    --chart-3: 45 50% 65%;
+    --chart-4: 15 70% 50%;
+    --chart-5: 55 45% 55%;
 
     --success: 142 76% 36%;
     --success-foreground: 0 0% 100%;
@@ -48,64 +48,19 @@ All colors MUST be HSL.
     --warning: 38 92% 50%;
     --warning-foreground: 0 0% 100%;
 
-    --sidebar-bg: 28 35% 85%;
-    --sidebar-hover: 28 25% 80%;
-
-    --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --glass-bg: 255 255 255 / 0.25; /* Glassmorphism background */
+    --glass-border: 255 255 255 / 0.18;
+    
+    --radius: 1rem; /* Larger radius for glassmorphism */
   }
 
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
+    --card: 222.2 84% 4.9% / 0.4;
     --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --glass-bg: 0 0 0 / 0.25;
+    --glass-border: 255 255 255 / 0.1;
   }
 }
 
@@ -115,6 +70,21 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-gradient-to-br from-orange-100 via-amber-50 to-stone-200 text-foreground min-h-screen;
+    background-attachment: fixed;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply backdrop-blur-md bg-white/25 border border-white/20 shadow-xl;
+  }
+  
+  .glass-sidebar {
+    @apply backdrop-blur-lg bg-white/30 border-r border-white/20;
+  }
+  
+  .glass-button {
+    @apply backdrop-blur-sm bg-white/20 hover:bg-white/30 border border-white/30 transition-all duration-200;
   }
 }
