@@ -87,4 +87,55 @@
   .glass-button {
     @apply backdrop-blur-sm bg-white/20 hover:bg-white/30 border border-white/30 transition-all duration-200;
   }
+
+  /* Print styles for A4 report */
+  .page-break {
+    @apply print:break-before-page;
+  }
+
+  @media print {
+    body {
+      @apply bg-white text-black;
+      background: white !important;
+    }
+    
+    .print\\:hidden {
+      display: none !important;
+    }
+    
+    .print\\:break-before-page {
+      page-break-before: always;
+    }
+    
+    .print\\:pt-0 {
+      padding-top: 0 !important;
+    }
+
+    /* Ensure good print colors */
+    * {
+      color-adjust: exact !important;
+      -webkit-print-color-adjust: exact !important;
+    }
+
+    /* Page margins for A4 */
+    @page {
+      margin: 2cm;
+      size: A4;
+    }
+
+    /* Font optimization for print */
+    body {
+      font-size: 12pt;
+      line-height: 1.4;
+    }
+
+    h1 { font-size: 24pt; }
+    h2 { font-size: 18pt; }
+    h3 { font-size: 14pt; }
+    
+    /* Avoid breaking content */
+    .avoid-break {
+      page-break-inside: avoid;
+    }
+  }
 }
