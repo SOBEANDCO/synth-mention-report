@@ -38,16 +38,16 @@ const AppleInsightsSection = ({ scrollY }: AppleInsightsSectionProps) => {
   ];
 
   return (
-    <section className="py-32 bg-white relative overflow-hidden">
+    <section className="py-24 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         {/* Section Header */}
         <div 
-          className="text-center mb-20"
+          className="text-center mb-16"
           style={{
-            transform: `translateY(${scrollY * -0.03}px)`
+            transform: `translateY(${scrollY * -0.02}px)`
           }}
         >
-          <h2 className="text-5xl font-light text-gray-900 mb-6 tracking-tight">
+          <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-6 tracking-tight">
             Key Insights
           </h2>
           <p className="text-xl text-gray-600 font-light max-w-3xl mx-auto leading-relaxed">
@@ -61,13 +61,13 @@ const AppleInsightsSection = ({ scrollY }: AppleInsightsSectionProps) => {
           {insights.map((insight, index) => (
             <div 
               key={index}
-              className={`bg-gradient-to-br ${
-                insight.color === 'blue' ? 'from-blue-50 to-blue-100' :
-                insight.color === 'green' ? 'from-green-50 to-green-100' :
-                'from-red-50 to-red-100'
-              } rounded-3xl p-8`}
+              className={`rounded-3xl p-8 shadow-lg ${
+                insight.color === 'blue' ? 'bg-gradient-to-br from-blue-50 to-cyan-100' :
+                insight.color === 'green' ? 'bg-gradient-to-br from-green-50 to-emerald-100' :
+                'bg-gradient-to-br from-red-50 to-rose-100'
+              }`}
               style={{
-                transform: `translateY(${scrollY * (-0.02 - index * 0.005)}px)`
+                transform: `translateY(${scrollY * (-0.01 - index * 0.005)}px)`
               }}
             >
               <div className={`text-4xl font-light mb-4 ${
@@ -87,9 +87,9 @@ const AppleInsightsSection = ({ scrollY }: AppleInsightsSectionProps) => {
               </p>
               
               <div className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
-                insight.color === 'blue' ? 'bg-blue-200 text-blue-800' :
-                insight.color === 'green' ? 'bg-green-200 text-green-800' :
-                'bg-red-200 text-red-800'
+                insight.color === 'blue' ? 'bg-blue-200/60 text-blue-800' :
+                insight.color === 'green' ? 'bg-green-200/60 text-green-800' :
+                'bg-red-200/60 text-red-800'
               }`}>
                 {insight.trend} vs Q4 2023
               </div>
@@ -99,9 +99,9 @@ const AppleInsightsSection = ({ scrollY }: AppleInsightsSectionProps) => {
 
         {/* Categories Performance */}
         <div 
-          className="bg-gray-50 rounded-3xl p-12"
+          className="bg-gradient-to-br from-slate-50 to-gray-100 rounded-3xl p-12 shadow-lg"
           style={{
-            transform: `translateY(${scrollY * -0.01}px)`
+            transform: `translateY(${scrollY * -0.005}px)`
           }}
         >
           <div className="text-center mb-12">
@@ -115,7 +115,7 @@ const AppleInsightsSection = ({ scrollY }: AppleInsightsSectionProps) => {
           
           <div className="space-y-6 max-w-4xl mx-auto">
             {categories.map((category, index) => (
-              <div key={index} className="bg-white rounded-2xl p-6">
+              <div key={index} className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-sm">
                 <div className="flex items-center justify-between mb-4">
                   <h4 className="text-lg font-medium text-gray-900">
                     {category.name}
@@ -133,8 +133,9 @@ const AppleInsightsSection = ({ scrollY }: AppleInsightsSectionProps) => {
                 <div className="w-full bg-gray-200 rounded-full h-3">
                   <div 
                     className={`h-3 rounded-full transition-all duration-1000 ${
-                      category.percentage >= 75 ? 'bg-green-500' :
-                      category.percentage >= 60 ? 'bg-yellow-500' : 'bg-red-500'
+                      category.percentage >= 75 ? 'bg-gradient-to-r from-green-500 to-emerald-600' :
+                      category.percentage >= 60 ? 'bg-gradient-to-r from-yellow-500 to-orange-500' : 
+                      'bg-gradient-to-r from-red-500 to-rose-600'
                     }`}
                     style={{ width: `${category.percentage}%` }}
                   ></div>

@@ -8,7 +8,6 @@ import AppleMetricsSection from './reportv4/AppleMetricsSection';
 import AppleCompetitiveSection from './reportv4/AppleCompetitiveSection';
 import AppleInsightsSection from './reportv4/AppleInsightsSection';
 import ApplePerformanceSection from './reportv4/ApplePerformanceSection';
-import AppleRecommendationsSection from './reportv4/AppleRecommendationsSection';
 import AppleLLMPerformanceSection from './reportv4/AppleLLMPerformanceSection';
 import AppleBuyerPersonaSection from './reportv4/AppleBuyerPersonaSection';
 import AppleTopPromptsSection from './reportv4/AppleTopPromptsSection';
@@ -77,7 +76,6 @@ const LLMReportV4 = () => {
         <AppleBuyerPersonaSection scrollY={scrollY} />
         <AppleTopPromptsSection scrollY={scrollY} />
         <AppleExternalSourcesSection scrollY={scrollY} />
-        <AppleRecommendationsSection scrollY={scrollY} />
       </div>
     </div>
   );

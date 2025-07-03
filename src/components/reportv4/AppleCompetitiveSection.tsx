@@ -7,8 +7,8 @@ interface AppleCompetitiveSectionProps {
 }
 
 const AppleCompetitiveSection = ({ scrollY }: AppleCompetitiveSectionProps) => {
-  const parallaxText = scrollY * 0.08;
-  const parallaxContent = scrollY * 0.04;
+  const parallaxText = scrollY * 0.02;
+  const parallaxContent = scrollY * 0.01;
 
   const competitorData = [
     { name: 'Il Nostro Brand', score: 65, mentions: 14, color: '#3b82f6', rank: '🥇' },
@@ -18,17 +18,17 @@ const AppleCompetitiveSection = ({ scrollY }: AppleCompetitiveSectionProps) => {
   ];
 
   return (
-    <section className="py-32 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
+    <section className="py-24 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         {/* Section Header */}
         <div 
-          className="text-center mb-20"
+          className="text-center mb-16"
           style={{
             transform: `translateY(${parallaxText}px)`
           }}
         >
           <div className="text-4xl font-light text-gray-400 mb-4">2</div>
-          <h2 className="text-5xl font-light text-gray-900 mb-6 tracking-tight">
+          <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-6 tracking-tight">
             Quanto viene considerato affidabile e competitivo?
           </h2>
           <p className="text-xl text-gray-600 font-light max-w-3xl mx-auto leading-relaxed">
@@ -36,30 +36,30 @@ const AppleCompetitiveSection = ({ scrollY }: AppleCompetitiveSectionProps) => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
           {/* Trust Score */}
           <div 
             style={{
               transform: `translateY(${parallaxText * 0.6}px)`
             }}
           >
-            <div className="bg-white rounded-3xl p-12 shadow-lg text-center">
-              <div className="text-8xl font-light text-green-600 mb-4">65</div>
+            <div className="bg-gradient-to-br from-green-50 to-emerald-100 rounded-3xl p-12 shadow-lg text-center">
+              <div className="text-7xl font-light text-green-600 mb-4">65</div>
               <h3 className="text-3xl font-medium text-gray-900 mb-4">Trust Score</h3>
               <p className="text-lg text-gray-600 font-light mb-8">
                 Basato su: posizione nelle risposte, sentiment e frequenza di citazione
               </p>
               
               <div className="space-y-4">
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center bg-white/60 rounded-xl p-4">
                   <span className="text-gray-700">Posizione media</span>
                   <span className="font-medium text-green-600">1.8/5</span>
                 </div>
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center bg-white/60 rounded-xl p-4">
                   <span className="text-gray-700">Sentiment score</span>
                   <span className="font-medium text-green-600">+0.41</span>
                 </div>
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center bg-white/60 rounded-xl p-4">
                   <span className="text-gray-700">Frequenza citazioni</span>
                   <span className="font-medium text-green-600">28%</span>
                 </div>
@@ -73,13 +73,13 @@ const AppleCompetitiveSection = ({ scrollY }: AppleCompetitiveSectionProps) => {
               transform: `translateY(${parallaxContent}px)`
             }}
           >
-            <div className="bg-gray-50 rounded-3xl p-8">
+            <div className="bg-gradient-to-br from-purple-50 to-indigo-100 rounded-3xl p-8 shadow-lg">
               <h3 className="text-2xl font-light text-gray-900 mb-2 text-center">Ranking tra Competitor</h3>
               <p className="text-gray-600 mb-8 font-light text-center">Basato su prompt neutri (senza bias)</p>
               
               <div className="space-y-4">
                 {competitorData.map((competitor, index) => (
-                  <div key={index} className="bg-white rounded-2xl p-6 flex items-center justify-between">
+                  <div key={index} className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 flex items-center justify-between shadow-sm">
                     <div className="flex items-center gap-4">
                       <div className="text-2xl">{competitor.rank}</div>
                       <div>
@@ -100,7 +100,7 @@ const AppleCompetitiveSection = ({ scrollY }: AppleCompetitiveSectionProps) => {
 
         {/* Competitive Chart */}
         <div 
-          className="bg-white rounded-3xl p-12 shadow-lg mb-16"
+          className="bg-gradient-to-br from-slate-50 to-gray-100 rounded-3xl p-12 shadow-lg mb-16"
           style={{
             transform: `translateY(${parallaxContent * 0.8}px)`
           }}
@@ -143,7 +143,7 @@ const AppleCompetitiveSection = ({ scrollY }: AppleCompetitiveSectionProps) => {
 
         {/* Key Insights */}
         <div 
-          className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-3xl p-12"
+          className="bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-100 rounded-3xl p-12 shadow-lg"
           style={{
             transform: `translateY(${parallaxContent * 0.5}px)`
           }}
@@ -153,15 +153,15 @@ const AppleCompetitiveSection = ({ scrollY }: AppleCompetitiveSectionProps) => {
           </h3>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <div>
+            <div className="bg-white/60 rounded-2xl p-6">
               <div className="text-3xl font-light text-blue-600 mb-2">+12%</div>
               <div className="text-gray-700 font-medium">Trust vs media competitor</div>
             </div>
-            <div>
+            <div className="bg-white/60 rounded-2xl p-6">
               <div className="text-3xl font-light text-green-600 mb-2">+2</div>
               <div className="text-gray-700 font-medium">Menzioni vs competitor più vicino</div>
             </div>
-            <div>
+            <div className="bg-white/60 rounded-2xl p-6">
               <div className="text-3xl font-light text-purple-600 mb-2">1°</div>
               <div className="text-gray-700 font-medium">Posizione nel ranking</div>
             </div>
