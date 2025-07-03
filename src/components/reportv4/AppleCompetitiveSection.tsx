@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Cell } from 'recharts';
 
 interface AppleCompetitiveSectionProps {
   scrollY: number;
@@ -68,7 +68,7 @@ const AppleCompetitiveSection = ({ scrollY }: AppleCompetitiveSectionProps) => {
                   className="drop-shadow-sm"
                 >
                   {competitorData.map((entry, index) => (
-                    <Bar key={`bar-${index}`} fill={entry.color} />
+                    <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Bar>
               </BarChart>
