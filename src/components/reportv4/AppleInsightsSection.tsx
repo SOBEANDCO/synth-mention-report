@@ -41,13 +41,8 @@ const AppleInsightsSection = ({ scrollY }: AppleInsightsSectionProps) => {
     <section className="py-24 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         {/* Section Header */}
-        <div 
-          className="text-center mb-16"
-          style={{
-            transform: `translateY(${scrollY * -0.02}px)`
-          }}
-        >
-          <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-6 tracking-tight">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-light bg-gradient-to-r from-teal-500 to-blue-600 bg-clip-text text-transparent mb-6 tracking-tight">
             Key Insights
           </h2>
           <p className="text-xl text-gray-600 font-light max-w-3xl mx-auto leading-relaxed">
@@ -66,9 +61,6 @@ const AppleInsightsSection = ({ scrollY }: AppleInsightsSectionProps) => {
                 insight.color === 'green' ? 'bg-gradient-to-br from-green-50 to-emerald-100' :
                 'bg-gradient-to-br from-red-50 to-rose-100'
               }`}
-              style={{
-                transform: `translateY(${scrollY * (-0.01 - index * 0.005)}px)`
-              }}
             >
               <div className={`text-4xl font-light mb-4 ${
                 insight.color === 'blue' ? 'text-blue-600' :
@@ -98,14 +90,9 @@ const AppleInsightsSection = ({ scrollY }: AppleInsightsSectionProps) => {
         </div>
 
         {/* Categories Performance */}
-        <div 
-          className="bg-gradient-to-br from-slate-50 to-gray-100 rounded-3xl p-12 shadow-lg"
-          style={{
-            transform: `translateY(${scrollY * -0.005}px)`
-          }}
-        >
+        <div className="bg-gradient-to-br from-slate-50 to-gray-100 rounded-3xl p-12 shadow-lg">
           <div className="text-center mb-12">
-            <h3 className="text-3xl font-light text-gray-900 mb-4">
+            <h3 className="text-3xl font-light bg-gradient-to-r from-slate-600 to-gray-800 bg-clip-text text-transparent mb-4">
               Performance per Categoria
             </h3>
             <p className="text-lg text-gray-600 font-light">
@@ -115,7 +102,7 @@ const AppleInsightsSection = ({ scrollY }: AppleInsightsSectionProps) => {
           
           <div className="space-y-6 max-w-4xl mx-auto">
             {categories.map((category, index) => (
-              <div key={index} className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-sm">
+              <div key={index} className="bg-gradient-to-r from-white/70 to-gray-50/70 backdrop-blur-sm rounded-2xl p-6 shadow-sm">
                 <div className="flex items-center justify-between mb-4">
                   <h4 className="text-lg font-medium text-gray-900">
                     {category.name}

@@ -7,9 +7,6 @@ interface AppleMetricsSectionProps {
 }
 
 const AppleMetricsSection = ({ scrollY }: AppleMetricsSectionProps) => {
-  const parallaxText = scrollY * 0.02;
-  const parallaxChart = scrollY * 0.01;
-
   const visibilityData = [
     { model: 'ChatGPT', score: 24 },
     { model: 'Gemini', score: 18 },
@@ -35,30 +32,20 @@ const AppleMetricsSection = ({ scrollY }: AppleMetricsSectionProps) => {
   return (
     <section className="py-24 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
-        {/* Section 1: Brand Presence */}
+        {/* Section 1: Brand Presence - Layout Laterale */}
         <div className="mb-32">
-          <div 
-            className="text-center mb-16"
-            style={{
-              transform: `translateY(${parallaxText}px)`
-            }}
-          >
-            <div className="text-4xl font-light text-gray-400 mb-4">1</div>
-            <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-6 tracking-tight">
-              Quanto è presente il tuo brand nelle ricerche AI?
-            </h2>
-            <p className="text-xl text-gray-600 font-light max-w-3xl mx-auto leading-relaxed">
-              In how many prompts does your brand appear?
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div 
-              style={{
-                transform: `translateY(${parallaxText * 0.5}px)`
-              }}
-            >
-              <div className="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-3xl p-8 text-center shadow-lg">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            {/* Testo a sinistra */}
+            <div>
+              <div className="text-4xl font-light text-gray-400 mb-4">1</div>
+              <h2 className="text-4xl md:text-5xl font-light bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent mb-6 tracking-tight">
+                Quanto è presente il tuo brand nelle ricerche AI?
+              </h2>
+              <p className="text-xl text-gray-600 font-light mb-8 leading-relaxed">
+                In how many prompts does your brand appear?
+              </p>
+              
+              <div className="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-3xl p-8 shadow-lg">
                 <div className="text-6xl font-light text-blue-600 mb-4">28%</div>
                 <h3 className="text-2xl font-medium text-gray-900 mb-4">LLM Visibility Score</h3>
                 <p className="text-lg text-gray-600 font-light mb-8">
@@ -82,11 +69,8 @@ const AppleMetricsSection = ({ scrollY }: AppleMetricsSectionProps) => {
               </div>
             </div>
 
-            <div 
-              style={{
-                transform: `translateY(${parallaxChart}px)`
-              }}
-            >
+            {/* Grafico a destra */}
+            <div>
               <div className="bg-gradient-to-br from-gray-50 to-slate-100 rounded-3xl p-8 shadow-lg">
                 <h3 className="text-2xl font-light text-gray-900 mb-2">Performance per Modello</h3>
                 <p className="text-gray-600 mb-8 font-light">Distribuzione delle menzioni sui principali LLM</p>
@@ -121,16 +105,11 @@ const AppleMetricsSection = ({ scrollY }: AppleMetricsSectionProps) => {
           </div>
         </div>
 
-        {/* Section 2: Sentiment Analysis */}
+        {/* Section 2: Sentiment Analysis - Layout Tradizionale */}
         <div className="mb-32">
-          <div 
-            className="text-center mb-16"
-            style={{
-              transform: `translateY(${parallaxText * 0.8}px)`
-            }}
-          >
+          <div className="text-center mb-16">
             <div className="text-4xl font-light text-gray-400 mb-4">3</div>
-            <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-6 tracking-tight">
+            <h2 className="text-4xl md:text-5xl font-light bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent mb-6 tracking-tight">
               Quando viene menzionato, cosa viene detto?
             </h2>
             <p className="text-xl text-gray-600 font-light max-w-3xl mx-auto leading-relaxed">
@@ -139,11 +118,7 @@ const AppleMetricsSection = ({ scrollY }: AppleMetricsSectionProps) => {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div 
-              style={{
-                transform: `translateY(${parallaxChart * 0.8}px)`
-              }}
-            >
+            <div>
               <div className="bg-gradient-to-br from-purple-50 to-pink-100 rounded-3xl p-8 shadow-lg">
                 <h3 className="text-2xl font-light text-gray-900 mb-8">Analisi del Sentiment</h3>
                 
@@ -181,11 +156,7 @@ const AppleMetricsSection = ({ scrollY }: AppleMetricsSectionProps) => {
               </div>
             </div>
 
-            <div 
-              style={{
-                transform: `translateY(${parallaxText * 0.6}px)`
-              }}
-            >
+            <div>
               <div className="space-y-6">
                 <div className="bg-gradient-to-r from-green-50 to-emerald-100 rounded-2xl p-6 shadow-sm">
                   <h4 className="font-medium text-green-800 mb-2">Sentiment Positivo</h4>
@@ -211,77 +182,73 @@ const AppleMetricsSection = ({ scrollY }: AppleMetricsSectionProps) => {
           </div>
         </div>
 
-        {/* Section 3: Trend Analysis */}
+        {/* Section 3: Trend Analysis - Layout Laterale Inverso */}
         <div>
-          <div 
-            className="text-center mb-16"
-            style={{
-              transform: `translateY(${parallaxText * 0.6}px)`
-            }}
-          >
-            <div className="text-4xl font-light text-gray-400 mb-4">5</div>
-            <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-6 tracking-tight">
-              Come cambia la visibilità nel tempo?
-            </h2>
-            <p className="text-xl text-gray-600 font-light max-w-3xl mx-auto leading-relaxed">
-              How is your visibility evolving week by week?
-            </p>
-          </div>
-          
-          <div 
-            className="bg-gradient-to-br from-indigo-50 via-blue-50 to-cyan-100 rounded-3xl p-12 shadow-lg"
-            style={{
-              transform: `translateY(${parallaxChart * 0.4}px)`
-            }}
-          >
-            <div className="text-center mb-12">
-              <h3 className="text-3xl font-light text-gray-900 mb-4">Trend delle Menzioni</h3>
-              <p className="text-lg text-gray-600 font-light">Evoluzione settimanale: Brand vs Competitor</p>
-            </div>
-            
-            <div className="h-80">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={trendData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                  <XAxis 
-                    dataKey="week" 
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fontSize: 14, fill: '#6b7280' }}
-                  />
-                  <YAxis 
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fontSize: 14, fill: '#6b7280' }}
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="brand" 
-                    stroke="#3b82f6" 
-                    strokeWidth={4}
-                    dot={{ fill: '#3b82f6', strokeWidth: 0, r: 6 }}
-                    name="Your Brand"
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="competitor" 
-                    stroke="#ef4444" 
-                    strokeWidth={4}
-                    dot={{ fill: '#ef4444', strokeWidth: 0, r: 6 }}
-                    name="Top Competitor"
-                  />
-                </LineChart>
-              </ResponsiveContainer>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            {/* Grafico a sinistra */}
+            <div>
+              <div className="bg-gradient-to-br from-indigo-50 via-blue-50 to-cyan-100 rounded-3xl p-12 shadow-lg">
+                <div className="text-center mb-12">
+                  <h3 className="text-3xl font-light text-gray-900 mb-4">Trend delle Menzioni</h3>
+                  <p className="text-lg text-gray-600 font-light">Evoluzione settimanale: Brand vs Competitor</p>
+                </div>
+                
+                <div className="h-80">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={trendData}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                      <XAxis 
+                        dataKey="week" 
+                        axisLine={false}
+                        tickLine={false}
+                        tick={{ fontSize: 14, fill: '#6b7280' }}
+                      />
+                      <YAxis 
+                        axisLine={false}
+                        tickLine={false}
+                        tick={{ fontSize: 14, fill: '#6b7280' }}
+                      />
+                      <Line 
+                        type="monotone" 
+                        dataKey="brand" 
+                        stroke="#3b82f6" 
+                        strokeWidth={4}
+                        dot={{ fill: '#3b82f6', strokeWidth: 0, r: 6 }}
+                        name="Your Brand"
+                      />
+                      <Line 
+                        type="monotone" 
+                        dataKey="competitor" 
+                        stroke="#ef4444" 
+                        strokeWidth={4}
+                        dot={{ fill: '#ef4444', strokeWidth: 0, r: 6 }}
+                        name="Top Competitor"
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-              <div className="text-center bg-white/60 rounded-2xl p-6">
-                <div className="text-2xl font-light text-blue-600 mb-2">+27%</div>
-                <div className="text-gray-700">Crescita ultimo mese</div>
-              </div>
-              <div className="text-center bg-white/60 rounded-2xl p-6">
-                <div className="text-2xl font-light text-green-600 mb-2">+4pts</div>
-                <div className="text-gray-700">Vantaggio vs competitor</div>
+            {/* Testo a destra */}
+            <div>
+              <div className="text-4xl font-light text-gray-400 mb-4">5</div>
+              <h2 className="text-4xl md:text-5xl font-light bg-gradient-to-r from-purple-500 to-pink-600 bg-clip-text text-transparent mb-6 tracking-tight">
+                Come cambia la visibilità nel tempo?
+              </h2>
+              <p className="text-xl text-gray-600 font-light mb-8 leading-relaxed">
+                How is your visibility evolving week by week?
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="text-center bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl p-6 shadow-sm">
+                  <div className="text-3xl font-light text-blue-600 mb-2">+27%</div>
+                  <div className="text-gray-700 font-medium">Crescita ultimo mese</div>
+                </div>
+                <div className="text-center bg-gradient-to-br from-green-50 to-emerald-100 rounded-2xl p-6 shadow-sm">
+                  <div className="text-3xl font-light text-green-600 mb-2">+4pts</div>
+                  <div className="text-gray-700 font-medium">Vantaggio vs competitor</div>
+                </div>
               </div>
             </div>
           </div>

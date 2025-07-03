@@ -7,9 +7,6 @@ interface AppleCompetitiveSectionProps {
 }
 
 const AppleCompetitiveSection = ({ scrollY }: AppleCompetitiveSectionProps) => {
-  const parallaxText = scrollY * 0.02;
-  const parallaxContent = scrollY * 0.01;
-
   const competitorData = [
     { name: 'Il Nostro Brand', score: 65, mentions: 14, color: '#3b82f6', rank: '🥇' },
     { name: 'Westwing', score: 58, mentions: 12, color: '#ef4444', rank: '🥈' },
@@ -21,14 +18,9 @@ const AppleCompetitiveSection = ({ scrollY }: AppleCompetitiveSectionProps) => {
     <section className="py-24 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         {/* Section Header */}
-        <div 
-          className="text-center mb-16"
-          style={{
-            transform: `translateY(${parallaxText}px)`
-          }}
-        >
+        <div className="text-center mb-16">
           <div className="text-4xl font-light text-gray-400 mb-4">2</div>
-          <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-6 tracking-tight">
+          <h2 className="text-4xl md:text-5xl font-light bg-gradient-to-r from-blue-500 to-indigo-600 bg-clip-text text-transparent mb-6 tracking-tight">
             Quanto viene considerato affidabile e competitivo?
           </h2>
           <p className="text-xl text-gray-600 font-light max-w-3xl mx-auto leading-relaxed">
@@ -38,11 +30,7 @@ const AppleCompetitiveSection = ({ scrollY }: AppleCompetitiveSectionProps) => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
           {/* Trust Score */}
-          <div 
-            style={{
-              transform: `translateY(${parallaxText * 0.6}px)`
-            }}
-          >
+          <div>
             <div className="bg-gradient-to-br from-green-50 to-emerald-100 rounded-3xl p-12 shadow-lg text-center">
               <div className="text-7xl font-light text-green-600 mb-4">65</div>
               <h3 className="text-3xl font-medium text-gray-900 mb-4">Trust Score</h3>
@@ -68,11 +56,7 @@ const AppleCompetitiveSection = ({ scrollY }: AppleCompetitiveSectionProps) => {
           </div>
 
           {/* Competitive Ranking */}
-          <div 
-            style={{
-              transform: `translateY(${parallaxContent}px)`
-            }}
-          >
+          <div>
             <div className="bg-gradient-to-br from-purple-50 to-indigo-100 rounded-3xl p-8 shadow-lg">
               <h3 className="text-2xl font-light text-gray-900 mb-2 text-center">Ranking tra Competitor</h3>
               <p className="text-gray-600 mb-8 font-light text-center">Basato su prompt neutri (senza bias)</p>
@@ -99,14 +83,9 @@ const AppleCompetitiveSection = ({ scrollY }: AppleCompetitiveSectionProps) => {
         </div>
 
         {/* Competitive Chart */}
-        <div 
-          className="bg-gradient-to-br from-slate-50 to-gray-100 rounded-3xl p-12 shadow-lg mb-16"
-          style={{
-            transform: `translateY(${parallaxContent * 0.8}px)`
-          }}
-        >
+        <div className="bg-gradient-to-br from-slate-50 to-gray-100 rounded-3xl p-12 shadow-lg mb-16">
           <div className="text-center mb-12">
-            <h3 className="text-3xl font-light text-gray-900 mb-4">Posizionamento Dinamico</h3>
+            <h3 className="text-3xl font-light bg-gradient-to-r from-slate-600 to-gray-800 bg-clip-text text-transparent mb-4">Posizionamento Dinamico</h3>
             <p className="text-lg text-gray-600 font-light">Trust Score comparison sui principali LLM</p>
           </div>
           
@@ -142,13 +121,8 @@ const AppleCompetitiveSection = ({ scrollY }: AppleCompetitiveSectionProps) => {
         </div>
 
         {/* Key Insights */}
-        <div 
-          className="bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-100 rounded-3xl p-12 shadow-lg"
-          style={{
-            transform: `translateY(${parallaxContent * 0.5}px)`
-          }}
-        >
-          <h3 className="text-2xl font-light text-gray-900 mb-8 text-center">
+        <div className="bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-100 rounded-3xl p-12 shadow-lg">
+          <h3 className="text-2xl font-light bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-8 text-center">
             Vantaggio Competitivo
           </h3>
           
