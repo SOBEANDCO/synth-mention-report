@@ -1,0 +1,75 @@
+
+import React, { useEffect, useState } from 'react';
+import { Button } from "@/components/ui/button";
+import { ArrowLeft, Download, Printer } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import AppleReportHero from './reportv4/AppleReportHero';
+import AppleMetricsSection from './reportv4/AppleMetricsSection';
+import AppleCompetitiveSection from './reportv4/AppleCompetitiveSection';
+import AppleInsightsSection from './reportv4/AppleInsightsSection';
+import ApplePerformanceSection from './reportv4/ApplePerformanceSection';
+import AppleRecommendationsSection from './reportv4/AppleRecommendationsSection';
+
+const LLMReportV4 = () => {
+  const navigate = useNavigate();
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handlePrint = () => {
+    window.print();
+  };
+
+  const handleDownload = () => {
+    console.log('Downloading V4 PDF report...');
+  };
+
+  return (
+    <div className="min-h-screen bg-white font-sf-pro">
+      {/* Header Navigation */}
+      <div className="print:hidden fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100 transition-all duration-300">
+        <div className="flex items-center justify-between max-w-7xl mx-auto px-6 py-4">
+          <Button 
+            variant="ghost" 
+            onClick={() => navigate('/')}
+            className="flex items-center gap-2 hover:bg-gray-100 text-gray-700"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Dashboard
+          </Button>
+          
+          <div className="text-lg font-medium text-gray-900">
+            LLM Visibility Report
+          </div>
+          
+          <div className="flex gap-2">
+            <Button variant="outline" onClick={handleDownload} className="flex items-center gap-2">
+              <Download className="w-4 h-4" />
+              Export
+            </Button>
+            <Button onClick={handlePrint} className="flex items-center gap-2 bg-black text-white hover:bg-gray-800">
+              <Printer className="w-4 h-4" />
+              Print
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      {/* Report Content */}
+      <div className="pt-20">
+        <AppleReportHero scrollY={scrollY} />
+        <AppleMetricsSection scrollY={scrollY} />
+        <AppleCompetitiveSection scrollY={scrollY} />
+        <AppleInsightsSection scrollY={scrollY} />
+        <ApplePerformanceSection scrollY={scrollY} />
+        <AppleRecommendationsSection scrollY={scrollY} />
+      </div>
+    </div>
+  );
+};
+
+export default LLMReportV4;
