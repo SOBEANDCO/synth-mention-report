@@ -38,11 +38,11 @@ const AppleInsightsSection = ({ scrollY }: AppleInsightsSectionProps) => {
   ];
 
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
+    <section className="py-32 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-light bg-gradient-to-r from-teal-500 to-blue-600 bg-clip-text text-transparent mb-6 tracking-tight">
+        <div className="text-center mb-20">
+          <h2 className="text-4xl md:text-5xl font-light bg-gradient-to-r from-teal-500 via-cyan-500 to-blue-600 bg-clip-text text-transparent mb-8 tracking-tight leading-tight">
             Key Insights
           </h2>
           <p className="text-xl text-gray-600 font-light max-w-3xl mx-auto leading-relaxed">
@@ -52,20 +52,20 @@ const AppleInsightsSection = ({ scrollY }: AppleInsightsSectionProps) => {
         </div>
 
         {/* Insights Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
           {insights.map((insight, index) => (
             <div 
               key={index}
-              className={`rounded-3xl p-8 shadow-lg ${
-                insight.color === 'blue' ? 'bg-gradient-to-br from-blue-50 to-cyan-100' :
-                insight.color === 'green' ? 'bg-gradient-to-br from-green-50 to-emerald-100' :
-                'bg-gradient-to-br from-red-50 to-rose-100'
+              className={`rounded-3xl p-8 shadow-xl border border-white/20 backdrop-blur-xl ${
+                insight.color === 'blue' ? 'bg-gradient-to-br from-blue-50 via-indigo-50 to-cyan-100' :
+                insight.color === 'green' ? 'bg-gradient-to-br from-green-50 via-emerald-50 to-teal-100' :
+                'bg-gradient-to-br from-red-50 via-rose-50 to-pink-100'
               }`}
             >
               <div className={`text-4xl font-light mb-4 ${
-                insight.color === 'blue' ? 'text-blue-600' :
-                insight.color === 'green' ? 'text-green-600' :
-                'text-red-600'
+                insight.color === 'blue' ? 'bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent' :
+                insight.color === 'green' ? 'bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent' :
+                'bg-gradient-to-r from-red-600 to-rose-600 bg-clip-text text-transparent'
               }`}>
                 {insight.metric}
               </div>
@@ -90,9 +90,9 @@ const AppleInsightsSection = ({ scrollY }: AppleInsightsSectionProps) => {
         </div>
 
         {/* Categories Performance */}
-        <div className="bg-gradient-to-br from-slate-50 to-gray-100 rounded-3xl p-12 shadow-lg">
+        <div className="bg-gradient-to-br from-slate-50 via-gray-50 to-blue-100 backdrop-blur-xl rounded-3xl p-12 shadow-xl border border-white/20">
           <div className="text-center mb-12">
-            <h3 className="text-3xl font-light bg-gradient-to-r from-slate-600 to-gray-800 bg-clip-text text-transparent mb-4">
+            <h3 className="text-3xl font-light bg-gradient-to-r from-slate-600 via-gray-700 to-blue-800 bg-clip-text text-transparent mb-4">
               Performance per Categoria
             </h3>
             <p className="text-lg text-gray-600 font-light">
@@ -102,7 +102,7 @@ const AppleInsightsSection = ({ scrollY }: AppleInsightsSectionProps) => {
           
           <div className="space-y-6 max-w-4xl mx-auto">
             {categories.map((category, index) => (
-              <div key={index} className="bg-gradient-to-r from-white/70 to-gray-50/70 backdrop-blur-sm rounded-2xl p-6 shadow-sm">
+              <div key={index} className="bg-gradient-to-r from-white/70 via-gray-50/70 to-blue-50/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/30">
                 <div className="flex items-center justify-between mb-4">
                   <h4 className="text-lg font-medium text-gray-900">
                     {category.name}

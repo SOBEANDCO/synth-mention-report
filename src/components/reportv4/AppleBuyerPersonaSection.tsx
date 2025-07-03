@@ -6,9 +6,6 @@ interface AppleBuyerPersonaSectionProps {
 }
 
 const AppleBuyerPersonaSection = ({ scrollY }: AppleBuyerPersonaSectionProps) => {
-  const parallaxText = scrollY * 0.04;
-  const parallaxContent = scrollY * 0.02;
-
   const personas = [
     { name: 'Neo-acquirenti', percentage: 53, color: '#3b82f6', description: 'Prime case, budget limitato' },
     { name: 'Interior Designers', percentage: 30, color: '#10b981', description: 'Professionisti del settore' },
@@ -26,14 +23,9 @@ const AppleBuyerPersonaSection = ({ scrollY }: AppleBuyerPersonaSectionProps) =>
   return (
     <section className="py-32 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
-        <div 
-          className="text-center mb-20"
-          style={{
-            transform: `translateY(${parallaxText}px)`
-          }}
-        >
-          <div className="text-4xl font-light text-gray-400 mb-4">7</div>
-          <h2 className="text-5xl font-light text-gray-900 mb-6 tracking-tight">
+        <div className="text-center mb-20">
+          <div className="text-4xl font-light text-gray-400 mb-6">7</div>
+          <h2 className="text-5xl font-light bg-gradient-to-r from-purple-500 via-pink-500 to-rose-600 bg-clip-text text-transparent mb-8 tracking-tight leading-tight">
             Chi ti cerca di più e su cosa?
           </h2>
           <p className="text-xl text-gray-600 font-light max-w-3xl mx-auto leading-relaxed">
@@ -41,19 +33,15 @@ const AppleBuyerPersonaSection = ({ scrollY }: AppleBuyerPersonaSectionProps) =>
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-24">
           {/* Buyer Personas */}
-          <div 
-            style={{
-              transform: `translateY(${parallaxContent}px)`
-            }}
-          >
-            <div className="bg-gray-50 rounded-3xl p-8">
+          <div>
+            <div className="bg-gradient-to-br from-gray-50 via-slate-50 to-blue-100 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/20">
               <h3 className="text-2xl font-light text-gray-900 mb-8 text-center">Buyer Personas</h3>
               
               <div className="space-y-4">
                 {personas.map((persona, index) => (
-                  <div key={index} className="bg-white rounded-2xl p-6">
+                  <div key={index} className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/30">
                     <div className="flex items-center justify-between mb-4">
                       <div>
                         <h4 className="font-medium text-gray-900">{persona.name}</h4>
@@ -69,7 +57,7 @@ const AppleBuyerPersonaSection = ({ scrollY }: AppleBuyerPersonaSectionProps) =>
                         className="h-3 rounded-full transition-all duration-1000"
                         style={{ 
                           width: `${persona.percentage}%`,
-                          backgroundColor: persona.color 
+                          background: `linear-gradient(45deg, ${persona.color}, ${persona.color}CC)`
                         }}
                       ></div>
                     </div>
@@ -80,17 +68,13 @@ const AppleBuyerPersonaSection = ({ scrollY }: AppleBuyerPersonaSectionProps) =>
           </div>
 
           {/* Product Categories */}
-          <div 
-            style={{
-              transform: `translateY(${parallaxContent * 0.8}px)`
-            }}
-          >
-            <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-3xl p-8">
+          <div>
+            <div className="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-100 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/20">
               <h3 className="text-2xl font-light text-gray-900 mb-8 text-center">Categorie più Efficaci</h3>
               
               <div className="space-y-6">
                 {categories.map((category, index) => (
-                  <div key={index} className="bg-white/60 backdrop-blur-sm rounded-2xl p-6">
+                  <div key={index} className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/30">
                     <div className="flex items-center justify-between mb-4">
                       <h4 className="font-medium text-gray-900">{category.name}</h4>
                       <div className="text-right">
@@ -102,9 +86,10 @@ const AppleBuyerPersonaSection = ({ scrollY }: AppleBuyerPersonaSectionProps) =>
                     <div className="w-full bg-gray-200 rounded-full h-2">
                       <div 
                         className={`h-2 rounded-full transition-all duration-1000 ${
-                          index === 0 ? 'bg-blue-500' :
-                          index === 1 ? 'bg-green-500' :
-                          index === 2 ? 'bg-yellow-500' : 'bg-purple-500'
+                          index === 0 ? 'bg-gradient-to-r from-blue-500 to-indigo-600' :
+                          index === 1 ? 'bg-gradient-to-r from-green-500 to-emerald-600' :
+                          index === 2 ? 'bg-gradient-to-r from-yellow-500 to-orange-600' : 
+                          'bg-gradient-to-r from-purple-500 to-pink-600'
                         }`}
                         style={{ width: `${category.percentage}%` }}
                       ></div>
@@ -117,14 +102,9 @@ const AppleBuyerPersonaSection = ({ scrollY }: AppleBuyerPersonaSectionProps) =>
         </div>
 
         {/* Insights */}
-        <div 
-          className="bg-white rounded-3xl p-12 shadow-lg"
-          style={{
-            transform: `translateY(${parallaxContent * 0.5}px)`
-          }}
-        >
+        <div className="bg-gradient-to-br from-white via-gray-50 to-blue-100 backdrop-blur-xl rounded-3xl p-12 shadow-xl border border-white/20">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-green-50 rounded-2xl p-6">
+            <div className="bg-gradient-to-r from-green-50 via-emerald-50 to-teal-100 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/30">
               <div className="text-2xl mb-2">🎯</div>
               <h4 className="font-medium text-green-800 mb-2">Target Primario</h4>
               <p className="text-green-700">
@@ -133,7 +113,7 @@ const AppleBuyerPersonaSection = ({ scrollY }: AppleBuyerPersonaSectionProps) =>
               </p>
             </div>
             
-            <div className="bg-blue-50 rounded-2xl p-6">
+            <div className="bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-100 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/30">
               <div className="text-2xl mb-2">🏆</div>
               <h4 className="font-medium text-blue-800 mb-2">Categoria Leader</h4>
               <p className="text-blue-700">

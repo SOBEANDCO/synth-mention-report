@@ -30,38 +30,38 @@ const AppleMetricsSection = ({ scrollY }: AppleMetricsSectionProps) => {
   ];
 
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
+    <section className="py-32 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         {/* Section 1: Brand Presence - Layout Laterale */}
         <div className="mb-32">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Testo a sinistra */}
-            <div>
-              <div className="text-4xl font-light text-gray-400 mb-4">1</div>
-              <h2 className="text-4xl md:text-5xl font-light bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent mb-6 tracking-tight">
+            <div className="order-1 lg:order-1">
+              <div className="text-4xl font-light text-gray-400 mb-6">1</div>
+              <h2 className="text-4xl md:text-5xl font-light bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-600 bg-clip-text text-transparent mb-8 tracking-tight leading-tight">
                 Quanto è presente il tuo brand nelle ricerche AI?
               </h2>
-              <p className="text-xl text-gray-600 font-light mb-8 leading-relaxed">
+              <p className="text-xl text-gray-600 font-light mb-12 leading-relaxed">
                 In how many prompts does your brand appear?
               </p>
               
-              <div className="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-3xl p-8 shadow-lg">
-                <div className="text-6xl font-light text-blue-600 mb-4">28%</div>
+              <div className="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-100 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/20">
+                <div className="text-6xl font-light bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">28%</div>
                 <h3 className="text-2xl font-medium text-gray-900 mb-4">LLM Visibility Score</h3>
                 <p className="text-lg text-gray-600 font-light mb-8">
                   Your brand was mentioned in 14 out of 50 relevant prompts
                 </p>
                 
                 <div className="space-y-4">
-                  <div className="flex justify-between items-center bg-white/60 rounded-xl p-4">
+                  <div className="flex justify-between items-center bg-white/70 backdrop-blur-sm rounded-xl p-4 border border-white/30">
                     <span className="text-gray-700">Prompts testati</span>
                     <span className="font-medium">50</span>
                   </div>
-                  <div className="flex justify-between items-center bg-white/60 rounded-xl p-4">
+                  <div className="flex justify-between items-center bg-white/70 backdrop-blur-sm rounded-xl p-4 border border-white/30">
                     <span className="text-gray-700">Menzioni totali</span>
                     <span className="font-medium">14</span>
                   </div>
-                  <div className="flex justify-between items-center bg-white/60 rounded-xl p-4">
+                  <div className="flex justify-between items-center bg-white/70 backdrop-blur-sm rounded-xl p-4 border border-white/30">
                     <span className="text-gray-700">Performance GPT vs Altri</span>
                     <span className="font-medium text-green-600">+12%</span>
                   </div>
@@ -70,8 +70,8 @@ const AppleMetricsSection = ({ scrollY }: AppleMetricsSectionProps) => {
             </div>
 
             {/* Grafico a destra */}
-            <div>
-              <div className="bg-gradient-to-br from-gray-50 to-slate-100 rounded-3xl p-8 shadow-lg">
+            <div className="order-2 lg:order-2">
+              <div className="bg-gradient-to-br from-slate-50 via-gray-50 to-blue-50 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/20">
                 <h3 className="text-2xl font-light text-gray-900 mb-2">Performance per Modello</h3>
                 <p className="text-gray-600 mb-8 font-light">Distribuzione delle menzioni sui principali LLM</p>
                 
@@ -94,7 +94,7 @@ const AppleMetricsSection = ({ scrollY }: AppleMetricsSectionProps) => {
                       <defs>
                         <linearGradient id="blueGradient" x1="0" y1="0" x2="0" y2="1">
                           <stop offset="0%" stopColor="#3b82f6" />
-                          <stop offset="100%" stopColor="#1d4ed8" />
+                          <stop offset="100%" stopColor="#8b5cf6" />
                         </linearGradient>
                       </defs>
                     </BarChart>
@@ -105,11 +105,11 @@ const AppleMetricsSection = ({ scrollY }: AppleMetricsSectionProps) => {
           </div>
         </div>
 
-        {/* Section 2: Sentiment Analysis - Layout Tradizionale */}
+        {/* Section 2: Sentiment Analysis */}
         <div className="mb-32">
           <div className="text-center mb-16">
-            <div className="text-4xl font-light text-gray-400 mb-4">3</div>
-            <h2 className="text-4xl md:text-5xl font-light bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent mb-6 tracking-tight">
+            <div className="text-4xl font-light text-gray-400 mb-6">3</div>
+            <h2 className="text-4xl md:text-5xl font-light bg-gradient-to-r from-emerald-500 via-cyan-500 to-blue-600 bg-clip-text text-transparent mb-8 tracking-tight leading-tight">
               Quando viene menzionato, cosa viene detto?
             </h2>
             <p className="text-xl text-gray-600 font-light max-w-3xl mx-auto leading-relaxed">
@@ -119,7 +119,7 @@ const AppleMetricsSection = ({ scrollY }: AppleMetricsSectionProps) => {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <div className="bg-gradient-to-br from-purple-50 to-pink-100 rounded-3xl p-8 shadow-lg">
+              <div className="bg-gradient-to-br from-purple-50 via-pink-50 to-rose-100 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/20">
                 <h3 className="text-2xl font-light text-gray-900 mb-8">Analisi del Sentiment</h3>
                 
                 <div className="h-64 flex items-center justify-center">
@@ -158,22 +158,22 @@ const AppleMetricsSection = ({ scrollY }: AppleMetricsSectionProps) => {
 
             <div>
               <div className="space-y-6">
-                <div className="bg-gradient-to-r from-green-50 to-emerald-100 rounded-2xl p-6 shadow-sm">
+                <div className="bg-gradient-to-r from-green-50 via-emerald-50 to-teal-100 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/30">
                   <h4 className="font-medium text-green-800 mb-2">Sentiment Positivo</h4>
                   <p className="text-green-700 italic">"Ottima qualità e design moderno, perfetto per arredare casa"</p>
                 </div>
                 
-                <div className="bg-gradient-to-r from-gray-50 to-slate-100 rounded-2xl p-6 shadow-sm">
+                <div className="bg-gradient-to-r from-gray-50 via-slate-50 to-blue-100 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/30">
                   <h4 className="font-medium text-gray-800 mb-2">Sentiment Neutro</h4>
                   <p className="text-gray-700 italic">"Il brand offre una vasta gamma di mobili per ogni ambiente"</p>
                 </div>
                 
-                <div className="bg-gradient-to-r from-red-50 to-rose-100 rounded-2xl p-6 shadow-sm">
+                <div className="bg-gradient-to-r from-red-50 via-rose-50 to-pink-100 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/30">
                   <h4 className="font-medium text-red-800 mb-2">Sentiment Negativo</h4>
                   <p className="text-red-700 italic">"I prezzi sono leggermente più alti della media di mercato"</p>
                 </div>
 
-                <div className="bg-gradient-to-r from-blue-50 to-cyan-100 rounded-2xl p-6 mt-8 shadow-sm">
+                <div className="bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-100 backdrop-blur-sm rounded-2xl p-6 mt-8 shadow-lg border border-white/30">
                   <h4 className="font-medium text-blue-800 mb-2">Comparazioni Frequenti</h4>
                   <p className="text-blue-700">Il tuo brand viene spesso confrontato con: <strong>Westwing, Mondo Convenienza, Maisons du Monde</strong></p>
                 </div>
@@ -183,11 +183,11 @@ const AppleMetricsSection = ({ scrollY }: AppleMetricsSectionProps) => {
         </div>
 
         {/* Section 3: Trend Analysis - Layout Laterale Inverso */}
-        <div>
+        <div className="mb-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Grafico a sinistra */}
-            <div>
-              <div className="bg-gradient-to-br from-indigo-50 via-blue-50 to-cyan-100 rounded-3xl p-12 shadow-lg">
+            <div className="order-2 lg:order-1">
+              <div className="bg-gradient-to-br from-indigo-50 via-blue-50 to-cyan-100 backdrop-blur-xl rounded-3xl p-12 shadow-xl border border-white/20">
                 <div className="text-center mb-12">
                   <h3 className="text-3xl font-light text-gray-900 mb-4">Trend delle Menzioni</h3>
                   <p className="text-lg text-gray-600 font-light">Evoluzione settimanale: Brand vs Competitor</p>
@@ -211,7 +211,7 @@ const AppleMetricsSection = ({ scrollY }: AppleMetricsSectionProps) => {
                       <Line 
                         type="monotone" 
                         dataKey="brand" 
-                        stroke="#3b82f6" 
+                        stroke="url(#brandGradient)" 
                         strokeWidth={4}
                         dot={{ fill: '#3b82f6', strokeWidth: 0, r: 6 }}
                         name="Your Brand"
@@ -219,11 +219,21 @@ const AppleMetricsSection = ({ scrollY }: AppleMetricsSectionProps) => {
                       <Line 
                         type="monotone" 
                         dataKey="competitor" 
-                        stroke="#ef4444" 
+                        stroke="url(#competitorGradient)" 
                         strokeWidth={4}
                         dot={{ fill: '#ef4444', strokeWidth: 0, r: 6 }}
                         name="Top Competitor"
                       />
+                      <defs>
+                        <linearGradient id="brandGradient" x1="0" y1="0" x2="1" y2="0">
+                          <stop offset="0%" stopColor="#3b82f6" />
+                          <stop offset="100%" stopColor="#8b5cf6" />
+                        </linearGradient>
+                        <linearGradient id="competitorGradient" x1="0" y1="0" x2="1" y2="0">
+                          <stop offset="0%" stopColor="#ef4444" />
+                          <stop offset="100%" stopColor="#f97316" />
+                        </linearGradient>
+                      </defs>
                     </LineChart>
                   </ResponsiveContainer>
                 </div>
@@ -231,22 +241,22 @@ const AppleMetricsSection = ({ scrollY }: AppleMetricsSectionProps) => {
             </div>
 
             {/* Testo a destra */}
-            <div>
-              <div className="text-4xl font-light text-gray-400 mb-4">5</div>
-              <h2 className="text-4xl md:text-5xl font-light bg-gradient-to-r from-purple-500 to-pink-600 bg-clip-text text-transparent mb-6 tracking-tight">
+            <div className="order-1 lg:order-2">
+              <div className="text-4xl font-light text-gray-400 mb-6">5</div>
+              <h2 className="text-4xl md:text-5xl font-light bg-gradient-to-r from-purple-500 via-pink-500 to-rose-600 bg-clip-text text-transparent mb-8 tracking-tight leading-tight">
                 Come cambia la visibilità nel tempo?
               </h2>
-              <p className="text-xl text-gray-600 font-light mb-8 leading-relaxed">
+              <p className="text-xl text-gray-600 font-light mb-12 leading-relaxed">
                 How is your visibility evolving week by week?
               </p>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="text-center bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl p-6 shadow-sm">
-                  <div className="text-3xl font-light text-blue-600 mb-2">+27%</div>
+                <div className="text-center bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-100 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/30">
+                  <div className="text-3xl font-light bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">+27%</div>
                   <div className="text-gray-700 font-medium">Crescita ultimo mese</div>
                 </div>
-                <div className="text-center bg-gradient-to-br from-green-50 to-emerald-100 rounded-2xl p-6 shadow-sm">
-                  <div className="text-3xl font-light text-green-600 mb-2">+4pts</div>
+                <div className="text-center bg-gradient-to-br from-green-50 via-emerald-50 to-teal-100 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/30">
+                  <div className="text-3xl font-light bg-gradient-to-r from-green-600 to-teal-600 bg-clip-text text-transparent mb-2">+4pts</div>
                   <div className="text-gray-700 font-medium">Vantaggio vs competitor</div>
                 </div>
               </div>
