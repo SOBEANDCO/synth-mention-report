@@ -9,14 +9,21 @@ import AppleCompetitiveSection from './reportv4/AppleCompetitiveSection';
 import AppleInsightsSection from './reportv4/AppleInsightsSection';
 import ApplePerformanceSection from './reportv4/ApplePerformanceSection';
 import AppleRecommendationsSection from './reportv4/AppleRecommendationsSection';
+import AppleLLMPerformanceSection from './reportv4/AppleLLMPerformanceSection';
+import AppleBuyerPersonaSection from './reportv4/AppleBuyerPersonaSection';
+import AppleTopPromptsSection from './reportv4/AppleTopPromptsSection';
+import AppleExternalSourcesSection from './reportv4/AppleExternalSourcesSection';
 
 const LLMReportV4 = () => {
   const navigate = useNavigate();
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -29,7 +36,7 @@ const LLMReportV4 = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white font-sf-pro">
+    <div className="min-h-screen bg-white font-sf-pro overflow-x-hidden">
       {/* Header Navigation */}
       <div className="print:hidden fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100 transition-all duration-300">
         <div className="flex items-center justify-between max-w-7xl mx-auto px-6 py-4">
@@ -66,6 +73,10 @@ const LLMReportV4 = () => {
         <AppleCompetitiveSection scrollY={scrollY} />
         <AppleInsightsSection scrollY={scrollY} />
         <ApplePerformanceSection scrollY={scrollY} />
+        <AppleLLMPerformanceSection scrollY={scrollY} />
+        <AppleBuyerPersonaSection scrollY={scrollY} />
+        <AppleTopPromptsSection scrollY={scrollY} />
+        <AppleExternalSourcesSection scrollY={scrollY} />
         <AppleRecommendationsSection scrollY={scrollY} />
       </div>
     </div>
