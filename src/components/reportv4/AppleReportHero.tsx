@@ -2,11 +2,31 @@
 import React from 'react';
 import { ChevronDown } from 'lucide-react';
 
-interface AppleReportHeroProps {
-  scrollY: number;
+interface ReportData {
+  brand_name: string;
+  industry: string;
+  analysis_results?: any;
+  created_at: string;
 }
 
-const AppleReportHero = ({ scrollY }: AppleReportHeroProps) => {
+interface AppleReportHeroProps {
+  scrollY: number;
+  reportData: ReportData;
+}
+
+const AppleReportHero = ({ scrollY, reportData }: AppleReportHeroProps) => {
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('it-IT', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
+
+  const visibilityScore = reportData.analysis_results?.visibility_score || 28;
+  const trustScore = reportData.analysis_results?.sentiment_score || 65;
+  const brandMentions = reportData.analysis_results?.brand_mentions || 14;
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-gray-50 to-white">
       {/* Background Elements */}
@@ -19,10 +39,12 @@ const AppleReportHero = ({ scrollY }: AppleReportHeroProps) => {
         {/* Company Logo */}
         <div className="mb-12">
           <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-3xl mx-auto mb-6 flex items-center justify-center shadow-lg">
-            <span className="text-white font-bold text-2xl">B</span>
+            <span className="text-white font-bold text-2xl">
+              {reportData.brand_name.charAt(0).toUpperCase()}
+            </span>
           </div>
-          <h3 className="text-xl font-medium text-gray-700 mb-2">Brand Name</h3>
-          <p className="text-gray-500">Generated on March 15, 2024</p>
+          <h3 className="text-xl font-medium text-gray-700 mb-2">{reportData.brand_name}</h3>
+          <p className="text-gray-500">Generato il {formatDate(reportData.created_at)}</p>
         </div>
 
         {/* Main Headline */}
@@ -39,15 +61,15 @@ const AppleReportHero = ({ scrollY }: AppleReportHeroProps) => {
         {/* Key Stats Preview */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           <div className="text-center">
-            <div className="text-5xl font-light text-blue-600 mb-2">28%</div>
+            <div className="text-5xl font-light text-blue-600 mb-2">{visibilityScore}%</div>
             <div className="text-lg text-gray-600 font-medium">LLM Visibility Score</div>
           </div>
           <div className="text-center">
-            <div className="text-5xl font-light text-green-600 mb-2">65</div>
+            <div className="text-5xl font-light text-green-600 mb-2">{trustScore}</div>
             <div className="text-lg text-gray-600 font-medium">Trust Score</div>
           </div>
           <div className="text-center">
-            <div className="text-5xl font-light text-purple-600 mb-2">14</div>
+            <div className="text-5xl font-light text-purple-600 mb-2">{brandMentions}</div>
             <div className="text-lg text-gray-600 font-medium">Brand Mentions</div>
           </div>
         </div>

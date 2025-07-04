@@ -13,7 +13,28 @@ import AppleBuyerPersonaSection from './reportv4/AppleBuyerPersonaSection';
 import AppleTopPromptsSection from './reportv4/AppleTopPromptsSection';
 import AppleExternalSourcesSection from './reportv4/AppleExternalSourcesSection';
 
-const LLMReportV4 = () => {
+interface ReportData {
+  id: string;
+  brand_name: string;
+  industry: string;
+  description?: string;
+  competitors?: string;
+  target_audience?: string;
+  keywords?: string;
+  status: string;
+  chatgpt_data?: any;
+  gemini_data?: any;
+  analysis_results?: any;
+  created_at: string;
+  updated_at: string;
+  user_id: string;
+}
+
+interface LLMReportV4Props {
+  reportData: ReportData;
+}
+
+const LLMReportV4 = ({ reportData }: LLMReportV4Props) => {
   const navigate = useNavigate();
   const [scrollY, setScrollY] = useState(0);
 
@@ -41,7 +62,7 @@ const LLMReportV4 = () => {
         <div className="flex items-center justify-between max-w-7xl mx-auto px-6 py-4">
           <Button 
             variant="ghost" 
-            onClick={() => navigate('/')}
+            onClick={() => navigate('/dashboard')}
             className="flex items-center gap-2 hover:bg-gray-100 text-gray-700"
           >
             <ArrowLeft className="w-4 h-4" />
@@ -49,7 +70,7 @@ const LLMReportV4 = () => {
           </Button>
           
           <div className="text-lg font-medium text-gray-900">
-            LLM Visibility Report
+            LLM Visibility Report - {reportData.brand_name}
           </div>
           
           <div className="flex gap-2">
@@ -67,15 +88,15 @@ const LLMReportV4 = () => {
 
       {/* Report Content */}
       <div className="pt-20">
-        <AppleReportHero scrollY={scrollY} />
-        <AppleMetricsSection scrollY={scrollY} />
-        <AppleCompetitiveSection scrollY={scrollY} />
-        <AppleInsightsSection scrollY={scrollY} />
-        <ApplePerformanceSection scrollY={scrollY} />
-        <AppleLLMPerformanceSection scrollY={scrollY} />
-        <AppleBuyerPersonaSection scrollY={scrollY} />
-        <AppleTopPromptsSection scrollY={scrollY} />
-        <AppleExternalSourcesSection scrollY={scrollY} />
+        <AppleReportHero scrollY={scrollY} reportData={reportData} />
+        <AppleMetricsSection scrollY={scrollY} reportData={reportData} />
+        <AppleCompetitiveSection scrollY={scrollY} reportData={reportData} />
+        <AppleInsightsSection scrollY={scrollY} reportData={reportData} />
+        <ApplePerformanceSection scrollY={scrollY} reportData={reportData} />
+        <AppleLLMPerformanceSection scrollY={scrollY} reportData={reportData} />
+        <AppleBuyerPersonaSection scrollY={scrollY} reportData={reportData} />
+        <AppleTopPromptsSection scrollY={scrollY} reportData={reportData} />
+        <AppleExternalSourcesSection scrollY={scrollY} reportData={reportData} />
       </div>
     </div>
   );
