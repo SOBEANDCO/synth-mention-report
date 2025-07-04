@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -6,9 +5,13 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { ArrowLeft, Building, Users, Target, Zap, CheckCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/hooks/useAuth';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
 
 const GenerateReportPage = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [currentStep, setCurrentStep] = useState(1);
   const [isGenerating, setIsGenerating] = useState(false);
   const [formData, setFormData] = useState({
@@ -47,12 +50,56 @@ const GenerateReportPage = () => {
   };
 
   const handleGenerate = async () => {
+    if (!user) {
+      toast.error('Devi essere autenticato per generare un report');
+      return;
+    }
+
     setIsGenerating(true);
-    // Simuliamo la generazione del report
-    setTimeout(() => {
+    
+    try {
+      // Create report record
+      const { data: report, error: insertError } = await supabase
+        .from('reports')
+        .insert({
+          user_id: user.id,
+          brand_name: formData.brandName,
+          industry: formData.industry,
+          description: formData.description,
+          competitors: formData.competitors,
+          target_audience: formData.targetAudience,
+          keywords: formData.keywords,
+          status: 'generating'
+        })
+        .select()
+        .single();
+
+      if (insertError) throw insertError;
+
+      // Call Edge Function to generate report
+      const { error: functionError } = await supabase.functions.invoke('generate-report', {
+        body: {
+          reportId: report.id,
+          brandName: formData.brandName,
+          industry: formData.industry,
+          description: formData.description,
+          competitors: formData.competitors,
+          targetAudience: formData.targetAudience,
+          keywords: formData.keywords
+        }
+      });
+
+      if (functionError) throw functionError;
+
+      toast.success('Report generato con successo!');
+      navigate(`/report-v4/${report.id}`);
+      
+    } catch (error) {
+      console.error('Error generating report:', error);
+      toast.error('Errore durante la generazione del report: ' + error.message);
+    } finally {
       setIsGenerating(false);
-      navigate('/report-v4');
-    }, 3000);
+    }
   };
 
   return (
@@ -73,7 +120,7 @@ const GenerateReportPage = () => {
             Genera Nuovo Report
           </div>
           
-          <div className="w-[120px]"></div> {/* Spacer */}
+          <div className="w-[120px]"></div>
         </div>
       </header>
 
@@ -237,7 +284,7 @@ const GenerateReportPage = () => {
                 <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6">
                   <h4 className="font-medium text-gray-900 mb-2">📊 Cosa Analizzeremo</h4>
                   <ul className="text-sm text-gray-700 space-y-1">
-                    <li>• Visibilità su ChatGPT, Gemini, Claude e Perplexity</li>
+                    <li>• Visibilità su ChatGPT e Gemini</li>
                     <li>• Posizionamento vs competitor</li>
                     <li>• Sentiment analysis delle menzioni</li>
                     <li>• Performance per categoria di prodotto</li>
@@ -279,12 +326,6 @@ const GenerateReportPage = () => {
                       <div className="flex items-center gap-3">
                         <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                         <span className="text-sm text-gray-700">Analisi competitive su Gemini...</span>
-                      </div>
-                    </div>
-                    <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
-                        <span className="text-sm text-gray-700">Elaborazione dati Claude...</span>
                       </div>
                     </div>
                   </div>

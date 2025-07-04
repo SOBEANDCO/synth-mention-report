@@ -5,20 +5,44 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ArrowLeft, Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/hooks/useAuth';
+import { toast } from "sonner";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const { signIn, user } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Redirect if already logged in
+  React.useEffect(() => {
+    if (user) {
+      navigate('/dashboard');
+    }
+  }, [user, navigate]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simuliamo il login per ora
-    console.log('Login attempt:', formData);
-    navigate('/dashboard');
+    setLoading(true);
+    
+    try {
+      const { error } = await signIn(formData.email, formData.password);
+      
+      if (error) {
+        toast.error('Errore durante il login: ' + error.message);
+      } else {
+        toast.success('Login effettuato con successo!');
+        navigate('/dashboard');
+      }
+    } catch (error) {
+      toast.error('Errore durante il login');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -95,21 +119,12 @@ const LoginPage = () => {
               </div>
             </div>
 
-            <div className="flex items-center justify-between text-sm">
-              <label className="flex items-center">
-                <input type="checkbox" className="rounded border-gray-300 text-purple-600 mr-2" />
-                <span className="text-gray-600">Ricordami</span>
-              </label>
-              <button type="button" className="text-purple-600 hover:text-purple-700">
-                Password dimenticata?
-              </button>
-            </div>
-
             <Button 
               type="submit" 
+              disabled={loading}
               className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 rounded-2xl text-lg font-medium"
             >
-              Accedi
+              {loading ? 'Accesso in corso...' : 'Accedi'}
             </Button>
           </form>
 

@@ -3,30 +3,46 @@ import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ArrowLeft, Mail, Lock, Eye, EyeOff, User, Building } from 'lucide-react';
+import { ArrowLeft, Mail, Lock, Eye, EyeOff, User } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/hooks/useAuth';
+import { toast } from "sonner";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
+  const { signUp, user } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    company: '',
+    fullName: '',
     email: '',
-    password: '',
-    confirmPassword: ''
+    password: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
-      alert('Le password non coincidono');
-      return;
+  // Redirect if already logged in
+  React.useEffect(() => {
+    if (user) {
+      navigate('/dashboard');
     }
-    // Simuliamo la registrazione per ora
-    console.log('Registration attempt:', formData);
-    navigate('/dashboard');
+  }, [user, navigate]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    
+    try {
+      const { error } = await signUp(formData.email, formData.password, formData.fullName);
+      
+      if (error) {
+        toast.error('Errore durante la registrazione: ' + error.message);
+      } else {
+        toast.success('Registrazione completata! Controlla la tua email.');
+      }
+    } catch (error) {
+      toast.error('Errore durante la registrazione');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,9 +53,8 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50 flex items-center justify-center p-6">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-6">
       <div className="w-full max-w-md">
-        {/* Back to Home */}
         <Button 
           variant="ghost" 
           onClick={() => navigate('/')}
@@ -49,59 +64,28 @@ const RegisterPage = () => {
           Torna alla Home
         </Button>
 
-        {/* Register Card */}
         <div className="bg-white/60 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/20">
           <div className="text-center mb-8">
-            <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-3xl mx-auto mb-4 flex items-center justify-center">
+            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-3xl mx-auto mb-4 flex items-center justify-center">
               <span className="text-white font-bold text-2xl">A</span>
             </div>
-            <h1 className="text-3xl font-light bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
-              Inizia Gratis
+            <h1 className="text-3xl font-light bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+              Benvenuto
             </h1>
             <p className="text-gray-600">Crea il tuo account AI Visibility</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="firstName" className="text-gray-700 font-medium">Nome</Label>
-                <div className="relative">
-                  <User className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
-                  <Input
-                    id="firstName"
-                    name="firstName"
-                    placeholder="Mario"
-                    value={formData.firstName}
-                    onChange={handleInputChange}
-                    className="pl-11 py-3 rounded-2xl border-gray-200 focus:border-purple-500"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="lastName" className="text-gray-700 font-medium">Cognome</Label>
-                <Input
-                  id="lastName"
-                  name="lastName"
-                  placeholder="Rossi"
-                  value={formData.lastName}
-                  onChange={handleInputChange}
-                  className="py-3 rounded-2xl border-gray-200 focus:border-purple-500"
-                  required
-                />
-              </div>
-            </div>
-
             <div className="space-y-2">
-              <Label htmlFor="company" className="text-gray-700 font-medium">Azienda</Label>
+              <Label htmlFor="fullName" className="text-gray-700 font-medium">Nome Completo</Label>
               <div className="relative">
-                <Building className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                <User className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
                 <Input
-                  id="company"
-                  name="company"
-                  placeholder="La tua azienda"
-                  value={formData.company}
+                  id="fullName"
+                  name="fullName"
+                  type="text"
+                  placeholder="Il tuo nome completo"
+                  value={formData.fullName}
                   onChange={handleInputChange}
                   className="pl-11 py-3 rounded-2xl border-gray-200 focus:border-purple-500"
                   required
@@ -134,12 +118,12 @@ const RegisterPage = () => {
                   id="password"
                   name="password"
                   type={showPassword ? "text" : "password"}
-                  placeholder="Minimo 8 caratteri"
+                  placeholder="Crea una password sicura"
                   value={formData.password}
                   onChange={handleInputChange}
                   className="pl-11 pr-11 py-3 rounded-2xl border-gray-200 focus:border-purple-500"
                   required
-                  minLength={8}
+                  minLength={6}
                 />
                 <button
                   type="button"
@@ -151,38 +135,12 @@ const RegisterPage = () => {
               </div>
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="confirmPassword" className="text-gray-700 font-medium">Conferma Password</Label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
-                <Input
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  type="password"
-                  placeholder="Ripeti la password"
-                  value={formData.confirmPassword}
-                  onChange={handleInputChange}
-                  className="pl-11 py-3 rounded-2xl border-gray-200 focus:border-purple-500"
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="flex items-start space-x-2">
-              <input type="checkbox" id="terms" className="rounded border-gray-300 text-purple-600 mt-1" required />
-              <label htmlFor="terms" className="text-sm text-gray-600">
-                Accetto i{' '}
-                <a href="#" className="text-purple-600 hover:text-purple-700">Termini di Servizio</a>{' '}
-                e la{' '}
-                <a href="#" className="text-purple-600 hover:text-purple-700">Privacy Policy</a>
-              </label>
-            </div>
-
             <Button 
               type="submit" 
-              className="w-full bg-gradient-to-r from-purple-500 to-pink-600 text-white py-3 rounded-2xl text-lg font-medium"
+              disabled={loading}
+              className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 rounded-2xl text-lg font-medium"
             >
-              Crea Account
+              {loading ? 'Registrazione in corso...' : 'Registrati'}
             </Button>
           </form>
 

@@ -9,7 +9,84 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          company: string | null
+          created_at: string
+          email: string | null
+          full_name: string | null
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          company?: string | null
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          company?: string | null
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      reports: {
+        Row: {
+          analysis_results: Json | null
+          brand_name: string
+          chatgpt_data: Json | null
+          competitors: string | null
+          created_at: string
+          description: string | null
+          gemini_data: Json | null
+          id: string
+          industry: string
+          keywords: string | null
+          status: string
+          target_audience: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          analysis_results?: Json | null
+          brand_name: string
+          chatgpt_data?: Json | null
+          competitors?: string | null
+          created_at?: string
+          description?: string | null
+          gemini_data?: Json | null
+          id?: string
+          industry: string
+          keywords?: string | null
+          status?: string
+          target_audience?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          analysis_results?: Json | null
+          brand_name?: string
+          chatgpt_data?: Json | null
+          competitors?: string | null
+          created_at?: string
+          description?: string | null
+          gemini_data?: Json | null
+          id?: string
+          industry?: string
+          keywords?: string | null
+          status?: string
+          target_audience?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

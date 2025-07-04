@@ -3,27 +3,72 @@ import React from 'react';
 import { Button } from "@/components/ui/button";
 import { BarChart3, FileText, Users, TrendingUp, Plus, Settings, LogOut, User } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/hooks/useAuth';
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
 
 const DashboardPage = () => {
   const navigate = useNavigate();
+  const { signOut, user } = useAuth();
 
-  const stats = [
-    { label: 'Report Generati', value: '12', change: '+3 questo mese', color: 'blue' },
-    { label: 'Visibility Score', value: '67%', change: '+12% vs ultimo mese', color: 'green' },
-    { label: 'Competitor Tracciati', value: '8', change: '2 nuovi aggiunti', color: 'purple' },
-    { label: 'Query Analizzate', value: '1,247', change: '+89 questa settimana', color: 'pink' }
-  ];
+  // Fetch user reports
+  const { data: reports, isLoading } = useQuery({
+    queryKey: ['reports', user?.id],
+    queryFn: async () => {
+      if (!user) return [];
+      const { data, error } = await supabase
+        .from('reports')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false });
+      
+      if (error) throw error;
+      return data;
+    },
+    enabled: !!user
+  });
 
-  const recentReports = [
-    { id: 1, name: 'Brand Analysis Q4 2024', date: '15 Mar 2024', status: 'completed' },
-    { id: 2, name: 'Competitor Comparison', date: '12 Mar 2024', status: 'completed' },
-    { id: 3, name: 'LLM Performance Review', date: '08 Mar 2024', status: 'processing' },
-  ];
-
-  const handleLogout = () => {
-    // Simuliamo il logout
+  const handleLogout = async () => {
+    await signOut();
     navigate('/');
   };
+
+  const stats = [
+    { 
+      label: 'Report Generati', 
+      value: reports?.length || 0, 
+      change: `${reports?.filter(r => r.created_at > new Date(Date.now() - 30*24*60*60*1000).toISOString()).length || 0} questo mese`, 
+      color: 'blue' 
+    },
+    { 
+      label: 'Report Completati', 
+      value: reports?.filter(r => r.status === 'completed').length || 0, 
+      change: 'analisi complete', 
+      color: 'green' 
+    },
+    { 
+      label: 'In Elaborazione', 
+      value: reports?.filter(r => r.status === 'generating').length || 0, 
+      change: 'report in corso', 
+      color: 'purple' 
+    },
+    { 
+      label: 'Brand Analizzati', 
+      value: new Set(reports?.map(r => r.brand_name) || []).size, 
+      change: 'marchi unici', 
+      color: 'pink' 
+    }
+  ];
+
+  const recentReports = reports?.slice(0, 3) || [];
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50">
@@ -43,10 +88,6 @@ const DashboardPage = () => {
             <Button variant="ghost" onClick={() => navigate('/profile')}>
               <User className="w-4 h-4 mr-2" />
               Profilo
-            </Button>
-            <Button variant="ghost" onClick={() => navigate('/settings')}>
-              <Settings className="w-4 h-4 mr-2" />
-              Impostazioni
             </Button>
             <Button variant="ghost" onClick={handleLogout}>
               <LogOut className="w-4 h-4 mr-2" />
@@ -69,7 +110,7 @@ const DashboardPage = () => {
 
         {/* Quick Actions */}
         <div className="mb-12">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Button 
               onClick={() => navigate('/generate-report')}
               className="h-24 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-3xl text-lg font-medium flex flex-col items-center justify-center gap-2"
@@ -78,23 +119,16 @@ const DashboardPage = () => {
               Genera Nuovo Report
             </Button>
             
-            <Button 
-              variant="outline" 
-              onClick={() => navigate('/report-v4')}
-              className="h-24 rounded-3xl text-lg font-medium flex flex-col items-center justify-center gap-2 border-2"
-            >
-              <FileText className="w-6 h-6" />
-              Vedi Ultimo Report
-            </Button>
-            
-            <Button 
-              variant="outline" 
-              onClick={() => navigate('/competitors')}
-              className="h-24 rounded-3xl text-lg font-medium flex flex-col items-center justify-center gap-2 border-2"
-            >
-              <Users className="w-6 h-6" />
-              Gestisci Competitor
-            </Button>
+            {recentReports.length > 0 && (
+              <Button 
+                variant="outline" 
+                onClick={() => navigate(`/report-v4/${recentReports[0].id}`)}
+                className="h-24 rounded-3xl text-lg font-medium flex flex-col items-center justify-center gap-2 border-2"
+              >
+                <FileText className="w-6 h-6" />
+                Vedi Ultimo Report
+              </Button>
+            )}
           </div>
         </div>
 
@@ -133,44 +167,57 @@ const DashboardPage = () => {
             <h2 className="text-2xl font-light bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
               Report Recenti
             </h2>
-            <Button 
-              onClick={() => navigate('/reports')}
-              variant="outline" 
-              className="rounded-2xl"
-            >
-              Vedi Tutti
-            </Button>
           </div>
           
-          <div className="space-y-4">
-            {recentReports.map((report) => (
-              <div 
-                key={report.id}
-                className="flex items-center justify-between p-4 bg-white/50 backdrop-blur-sm rounded-2xl border border-white/30 hover:shadow-lg transition-all"
-              >
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl flex items-center justify-center">
-                    <FileText className="w-5 h-5 text-blue-600" />
+          {recentReports.length > 0 ? (
+            <div className="space-y-4">
+              {recentReports.map((report) => (
+                <div 
+                  key={report.id}
+                  className="flex items-center justify-between p-4 bg-white/50 backdrop-blur-sm rounded-2xl border border-white/30 hover:shadow-lg transition-all"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl flex items-center justify-center">
+                      <FileText className="w-5 h-5 text-blue-600" />
+                    </div>
+                    <div>
+                      <h3 className="font-medium text-gray-900">{report.brand_name} Analysis</h3>
+                      <p className="text-sm text-gray-600">{new Date(report.created_at).toLocaleDateString('it-IT')}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-medium text-gray-900">{report.name}</h3>
-                    <p className="text-sm text-gray-600">{report.date}</p>
+                  
+                  <div className="flex items-center gap-4">
+                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                      report.status === 'completed' ? 'bg-green-100 text-green-800' : 
+                      report.status === 'generating' ? 'bg-yellow-100 text-yellow-800' :
+                      'bg-red-100 text-red-800'
+                    }`}>
+                      {report.status === 'completed' ? 'Completato' : 
+                       report.status === 'generating' ? 'In Elaborazione' : 'Fallito'}
+                    </span>
+                    {report.status === 'completed' && (
+                      <Button 
+                        size="sm" 
+                        variant="ghost"
+                        onClick={() => navigate(`/report-v4/${report.id}`)}
+                      >
+                        Visualizza
+                      </Button>
+                    )}
                   </div>
                 </div>
-                
-                <div className="flex items-center gap-4">
-                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                    report.status === 'completed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
-                  }`}>
-                    {report.status === 'completed' ? 'Completato' : 'In Elaborazione'}
-                  </span>
-                  <Button size="sm" variant="ghost">
-                    Visualizza
-                  </Button>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <FileText className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-gray-600 mb-2">Nessun Report Generato</h3>
+              <p className="text-gray-500 mb-6">Inizia creando il tuo primo report di analisi AI</p>
+              <Button onClick={() => navigate('/generate-report')}>
+                Genera Primo Report
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </div>
